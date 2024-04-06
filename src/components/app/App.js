@@ -11,7 +11,7 @@ class App extends React.Component {
     selectedChar: null,
   };
 
-  onCharSelectet = (id) => {
+  onCharSelected = (id) => {
     this.setState({ selectedChar: id });
   };
 
@@ -22,7 +22,7 @@ class App extends React.Component {
         <main>
           <RandomChar />
           <div className="char__content">
-            <CharList onCharSelectet={this.onCharSelectet} />
+            <CharList onCharSelected={this.onCharSelected} />
             <CharInfo charId={this.state.selectedChar} />
           </div>
           <img className="bg-decoration" src={decoration} alt="vision" />
