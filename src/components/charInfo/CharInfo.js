@@ -5,7 +5,7 @@ import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Skeleton from "../skeleton/Skeleton";
 
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 
 import "./charInfo.scss";
 
@@ -14,7 +14,7 @@ const CharInfo = ({ charId }) => {
   const [loading, setLoading] = useState(false);
   const [error, setErrro] = useState(false);
 
-  const marvelService = new MarvelService();
+  const marvelService = useMarvelService();
 
   useEffect(() => {
     updateChar();
