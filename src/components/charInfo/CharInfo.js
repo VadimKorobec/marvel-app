@@ -11,10 +11,8 @@ import "./charInfo.scss";
 
 const CharInfo = ({ charId }) => {
   const [char, setChar] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setErrro] = useState(false);
 
-  const marvelService = useMarvelService();
+  const { loading, error, getCharacter, clearError } = useMarvelService();
 
   useEffect(() => {
     updateChar();
@@ -22,25 +20,14 @@ const CharInfo = ({ charId }) => {
 
   const onCharLoader = (char) => {
     setChar(char);
-    setLoading(false);
-  };
-
-  const onCharLoading = () => {
-    setLoading(true);
-  };
-
-  const onError = () => {
-    setLoading(false);
-    setErrro(true);
   };
 
   const updateChar = () => {
     if (!charId) {
       return;
     }
-
-    onCharLoading();
-    marvelService.getCharacter(charId).then(onCharLoader).catch(onError);
+    clearError();
+    getCharacter(charId).then(onCharLoader);
   };
 
   const skeleton = char || loading || error ? null : <Skeleton />;
