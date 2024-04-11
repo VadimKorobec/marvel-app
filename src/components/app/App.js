@@ -4,6 +4,8 @@ import AppHeader from "../appHeader/AppHeader";
 
 import MainPage from "../../pages/MainPage";
 import ComicsPage from "../../pages/ComicsPage";
+import NotFound from "../../pages/NotFound";
+import SingleComicPage from "../../pages/SingleComicPage";
 
 const App = () => {
   return (
@@ -12,7 +14,10 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/comics" element={<ComicsPage />} />
+          <Route path="/comics" element={<ComicsPage />}>
+            <Route path="/comics/:id" element={<SingleComicPage />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </div>
