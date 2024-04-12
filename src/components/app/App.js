@@ -14,9 +14,8 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/comics" element={<ComicsPage />}>
-            <Route path="/comics/:id" element={<SingleComicPage />} />
-          </Route>
+          <Route path="/comics" element={<ComicsPage />} />
+          <Route path="/comics/:comicId" element={<SingleComicPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
