@@ -1,51 +1,39 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import Spinner from "../spinner/Spinner";
-import ErrorMessage from "../errorMessage/ErrorMessage";
 import useMarvelService from "../../services/MarvelService";
-import Skeleton from "../skeleton/Skeleton";
+import setContent from "../../utils/setContent";
 
 import "./charInfo.scss";
 
 const CharInfo = ({ charId }) => {
   const [char, setChar] = useState(null);
 
-  const { loading, error, getCharacter, clearError } = useMarvelService();
+  const { getCharacter, clearError, process, setProcess } = useMarvelService();
 
   useEffect(() => {
     updateChar();
   }, [charId]);
-
-  const onCharLoader = (char) => {
-    setChar(char);
-  };
 
   const updateChar = () => {
     if (!charId) {
       return;
     }
     clearError();
-    getCharacter(charId).then(onCharLoader);
+    getCharacter(charId)
+      .then(onCharLoader)
+      .then(() => setProcess("confirmed"));
   };
 
-  const skeleton = char || loading || error ? null : <Skeleton />;
-  const errorMessage = error ? <ErrorMessage /> : null;
-  const spiner = loading ? <Spinner /> : null;
-  const content = !(loading || error || !char) ? <View char={char} /> : null;
+  const onCharLoader = (char) => {
+    setChar(char);
+  };
 
-  return (
-    <div className="char__info">
-      {skeleton}
-      {errorMessage}
-      {spiner}
-      {content}
-    </div>
-  );
+  return <div className="char__info">{setContent(process, View, char)}</div>;
 };
 
 const View = ({
-  char: { name, description, thumbnail, homepage, wiki, comics },
+  data: { name, description, thumbnail, homepage, wiki, comics },
 }) => {
   let imgStyle = { objectFit: "cover" };
   if (
